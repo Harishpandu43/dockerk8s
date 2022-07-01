@@ -22,3 +22,27 @@ spec:
           value: "jdbc:postgresql://postgres:5432/app"
         ports:
         - containerPort: 8080
+        startupProbe:
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 2
+          successThreshold: 1
+          periodSeconds: 10
+          initialDelaySeconds: 0
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
