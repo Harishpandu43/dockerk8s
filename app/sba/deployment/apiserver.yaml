@@ -21,4 +21,4 @@ spec:
         - name: spring.datasource.url
           value: "jdbc:postgresql://postgres:5432/app"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
