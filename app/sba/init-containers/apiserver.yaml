@@ -1,0 +1,36 @@
+apiVersion: av1
+kind: Pod
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apiserver
+  template:
+    metadata:
+      labels:
+        app: apiserver
+    spec:
+      containers:
+      - name: apiserver
+        image: harishpandu43/sba_api_image
+        env:
+        - name: spring.datasource.url
+          value: "jdbc:postgresql://postgres:5432/app"
+        ports:
+        - containerPort: 8080
+      initContainers:
+      - name: postgres
+        image: postgres
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "postgres"
+        - name: POSTGRES_DB
+          value: "app"
+        ports:
+        - containerPort: 5432
