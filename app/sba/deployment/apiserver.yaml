@@ -14,6 +14,16 @@ spec:
       labels:
         app: apiserver
     spec:
+      affinity:
+          podAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: tier
+                  operator: In  # NotIn, Exists, NotExists
+                  values:
+                  - frontend
+              topologyKey: kubernetes.io/hostname
       containers:
       - name: apiserver
         image: harishpandu43/sba_api_image
