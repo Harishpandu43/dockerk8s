@@ -14,6 +14,16 @@ spec:
         app: sba-frontend
         release: v1
     spec:
+      affinity:
+          podAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: tier
+                  operator: In  # NotIn, Exists, NotExists
+                  values:
+                  - frontend
+              topologyKey: kubernetes.io/hostname
       containers:
       - image: harishpandu43/sba-frontend:nginx
         name: sba-frontend
